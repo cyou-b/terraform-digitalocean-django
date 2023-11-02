@@ -3,10 +3,11 @@
 # ------------------------------------------
 
 resource "digitalocean_droplet" "instance" {
-  image  = var.droplet_image
-  name   = var.droplet_name
-  region = var.droplet_region
-  size   = var.droplet_size
+  image    = var.droplet_image
+  name     = var.droplet_name
+  region   = var.droplet_region
+  size     = var.droplet_size
+  ssh_keys = [data.digitalocean_ssh_key.existing_key.fingerprint]
 }
 
 
@@ -39,8 +40,8 @@ resource "digitalocean_record" "main_record" {
 }
 
 resource "digitalocean_record" "www_record" {
-    domain = digitalocean_domain.main_domain.name
-    type   = "CNAME"
-    name   = "www"
-    value  = "${digitalocean_domain.main_domain.name}."
+  domain = digitalocean_domain.main_domain.name
+  type   = "CNAME"
+  name   = "www"
+  value  = "${digitalocean_domain.main_domain.name}."
 }

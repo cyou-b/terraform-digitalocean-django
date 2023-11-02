@@ -69,3 +69,16 @@ variable "subdomain_name" {
   description = "The subdomain name"
   type        = string
 }
+
+# ssh key
+variable "ssh_key_name" {
+  description = "SSH Key name"
+  type        = string
+  default     = ""
+}
+
+variable "ssh_pubkey_file" {
+  description = "SSH Key file path"
+  type        = string
+  default     = ""
+}

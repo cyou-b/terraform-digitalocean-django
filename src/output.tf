@@ -3,5 +3,5 @@ output "droplet_ip" {
 }
 
 output "domain" {
-    value = digitalocean_domain.main_domain.name
+  value = digitalocean_domain.main_domain.name
 }
