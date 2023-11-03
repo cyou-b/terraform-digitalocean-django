@@ -12,18 +12,6 @@ resource "digitalocean_droplet" "instance" {
 
 
 # ------------------------------------------
-# project
-# ------------------------------------------
-
-resource "digitalocean_project" "example_project" {
-  count       = var.project_name != null ? 1 : 0
-  name        = var.project_name
-  description = var.project_description
-  resources   = [digitalocean_droplet.instance.urn]
-}
-
-
-# ------------------------------------------
 # custom domain
 # ------------------------------------------
 
@@ -44,4 +32,18 @@ resource "digitalocean_record" "www_record" {
   type   = "CNAME"
   name   = "www"
   value  = "${digitalocean_domain.main_domain.name}."
+}
+
+# ------------------------------------------
+# project
+# ------------------------------------------
+
+resource "digitalocean_project" "project" {
+  count       = var.project_name != null ? 1 : 0
+  name        = var.project_name
+  description = var.project_description
+  resources   = [
+    digitalocean_droplet.instance.urn,
+    digitalocean_domain.main_domain.urn  
+  ]
 }
